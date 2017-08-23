@@ -13,14 +13,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure (HttpSecurity http) throws Exception
     {
-//        auth.inMemoryAuthentication().
-//                withUser("user").password("password").roles("USER");
-
-        //to add additional accounts, remove the semicolon at the end of the previous command
-        // and add an additional user like below:
-//          .and()
-//          .withUser("dave").password("begreat").roles("USER");
-
         http
                 .authorizeRequests()
                 .anyRequest().authenticated()
@@ -28,6 +20,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login").permitAll()
                 .and()
                 .httpBasic();
+    }
+
+    @Override
+    protected void configure (AuthenticationManagerBuilder auth) throws Exception
+    {
+                auth.inMemoryAuthentication().
+                withUser("user").password("password").roles("USER")
+
+//        to add additional accounts, remove the semicolon at the end of the previous command
+//         and add an additional user like below:
+          .and()
+          .withUser("dave").password("begreat").roles("USER");
     }
 
 
